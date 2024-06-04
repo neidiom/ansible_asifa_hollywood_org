@@ -34,7 +34,9 @@
     - role: geerlingguy.composer
       tags:
         - composer
-    - role: chriscroome.wpcli
+    - role: webarch-coop.wpcli
+      vars:
+        wpcli: true
       tags:
         - wpcli
   tasks:

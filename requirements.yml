@@ -1,0 +1,4 @@
+---
+roles:
+  - name: webarch-coop.wpcli
+    version: "2.1.0"
