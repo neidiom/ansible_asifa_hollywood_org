@@ -1,0 +1,61 @@
+---
+- hosts: asifa_hollywood_org
+  vars_files:
+    - environments/asifa_hollywood_org/vars/nginx/main.yml
+    - environments/asifa_hollywood_org/vars/nginx/http/default.yml
+    - environments/asifa_hollywood_org/vars/nginx/upload.yml
+    #
+    - environments/asifa_hollywood_org/vars/nginx.yml
+    - environments/asifa_hollywood_org/vars/php.yml
+    - environments/asifa_hollywood_org/vars/php_packages.yml
+    - environments/asifa_hollywood_org/vars/php.ini.yml
+  become: true
+  roles:
+    - role: grog.user
+      vars:
+        user_list_group:
+        - name: "{{www_user}}"
+          shell: "/usr/bin/bash"
+      tags:
+        - user
+    # - role: nginxinc.nginx_config
+    #   tags:
+    #     - nginxinc
+
+    - role: geerlingguy.nginx
+      tags:
+        - nginx
+    - role: geerlingguy.php-versions
+      tags:
+        - php_version
+    - role: geerlingguy.php
+      tags:
+        - php
+    - role: geerlingguy.composer
+      tags:
+        - composer
+    - role: chriscroome.wpcli
+      tags:
+        - wpcli
+  tasks:
+  - name: create project directories
+    file:
+      path: "{{ item }}"
+      state: directory
+      owner: "{{www_user}}"
+      group: "{{www_user}}"
+      recurse: yes
+      mode: 0755
+    with_items:
+     - "/var/www/{{ www_hostname }}"
+     - "/var/www/{{ www_hostname }}/web"
+    tags:
+      - tasks
+  - name: Change permissions
+    file:
+      dest: "/var/www/{{ www_hostname }}/web"
+      owner: "{{www_user}}"
+      group: "{{www_user}}"
+      recurse: true
+    tags:
+      - tasks

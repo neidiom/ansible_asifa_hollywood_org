@@ -1,0 +1,35 @@
+# PHP
+php_version: '8.2'
+php_default_version_debian: "8.2"
+php_versions_install_recommends: false
+php_webserver_daemon: "nginx"
+#
+# FPM
+#
+php_enable_php_fpm: true
+php_fpm_state: started
+php_fpm_enabled_on_boot: true
+#
+# php fpm pool
+#
+php_fpm_pool_user: "{{www_user}}"
+php_fpm_pool_group: "{{www_user}}"
+pool_pm_max_children: "50"
+php_fpm_pools:
+  - pool_name: "{{www_hostname}}"
+    pool_template: "{{ playbook_dir }}/templates/www.conf.j2"
+    pool_listen: "/var/run/php/{{ www_hostname }}.sock"
+    pool_listen_allowed_clients: "127.0.0.1, 10.10.10.190, 2a01:4f8:200:230d::170"
+    pool_pm: dynamic
+    pool_pm_max_children: 20
+    pool_pm_start_servers: 2
+    pool_pm_min_spare_servers: 1
+    pool_pm_max_spare_servers: 3
+    pool_pm_max_requests: 500
+    pool_pm_status_path: /status
+    #
+  - pool_name: "{{www_hostname}}_admin"
+    pool_template: "{{ playbook_dir }}/templates/www.conf.j2"
+    pool_listen: "/var/run/php/{{ www_hostname }}_admin.sock"
+    pool_listen_allowed_clients: "127.0.0.1, 10.10.10.190, 2a01:4f8:200:230d::170"
+    pool_pm: ondemand

@@ -1,0 +1,6 @@
+# Upload HTML files.
+nginx_config_upload_html_enable: true
+nginx_config_upload_html:
+  - src: templates/www/index.html
+    dest: /usr/share/nginx/html
+    backup: false

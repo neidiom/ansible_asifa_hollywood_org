@@ -1,0 +1,50 @@
+#
+# php.ni
+#
+php_use_managed_ini: true
+php_memory_limit: "256M"
+php_max_execution_time: "300"
+php_max_input_time: "300"
+php_max_input_vars: "1000"
+php_file_uploads: "On"
+php_upload_max_filesize: "64M"
+php_max_file_uploads: "20"
+php_post_max_size: "32M"
+php_date_timezone: "America/Los_Angeles"
+# php_realpath_cache_size: "32K"
+# php_allow_url_fopen: "On"
+# php_sendmail_path: "/usr/sbin/sendmail -t -i"
+# #php_output_buffering: "4096"
+#
+# Error handling
+php_short_open_tag: "On"
+# php_error_reporting: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
+php_display_errors: "On"
+php_display_startup_errors: "On"
+
+# #php_precision: 14
+# #php_serialize_precision: "-1"
+#
+# Remove x-powered-by
+php_expose_php: "Off"
+#
+#
+disable_functions:
+  - exec
+  - passthru
+  - shell_exec
+  - system
+  - proc_open
+  - popen
+  - curl_exec
+  - curl_multi_exec
+  - parse_ini_file
+  - show_source
+#
+# Sessions
+# php_session_cookie_lifetime: 0
+# php_session_gc_probability: 1
+# php_session_gc_divisor: 1000
+# php_session_gc_maxlifetime: 1440
+# php_session_save_handler: files
+# #php_session_save_path: '"N;/path"'
