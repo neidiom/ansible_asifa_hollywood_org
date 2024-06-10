@@ -15,6 +15,11 @@ nginx_vhosts:
     filename: "{{www_hostname}}.conf"
     extra_parameters: |
     extra_parameters: |
+      location ~ /\.well-known/acme-challenge/ {
+        root /var/www/html/;
+        index index.html index.htm;
+        try_files $uri =404;
+      }
       location / {
            try_files $uri $uri/ /index.php$is_args$args;
       }
